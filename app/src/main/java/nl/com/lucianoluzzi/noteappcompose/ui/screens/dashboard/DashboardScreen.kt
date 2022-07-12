@@ -3,6 +3,8 @@ package nl.com.lucianoluzzi.noteappcompose.ui.screens.dashboard
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,12 +12,17 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.Card
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import nl.com.lucianoluzzi.noteappcompose.domail.model.Note
 import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
@@ -24,11 +31,21 @@ import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
 fun DashboardScreen(
     viewModel: DashboardViewModel = DashboardViewModel(),
 ) {
-    Surface(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            FloatingActionButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Filled.Edit, contentDescription = null)
+            }
+        }
+    ) { contentPadding ->
         LazyVerticalGrid(
-            modifier = Modifier.padding(all = 12.dp),
+            modifier = Modifier.padding(
+                top = contentPadding.calculateTopPadding() + 12.dp,
+                start = contentPadding.calculateStartPadding(LayoutDirection.Ltr) + 12.dp,
+                end = contentPadding.calculateEndPadding(LayoutDirection.Ltr) + 12.dp,
+                bottom = contentPadding.calculateBottomPadding() + 12.dp,
+            ),
             columns = GridCells.Fixed(2),
         ) {
             items(viewModel.notes) { note ->
