@@ -1,6 +1,7 @@
 package nl.com.lucianoluzzi.noteappcompose.ui.screens.dashboard
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -30,6 +31,7 @@ import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
 @Composable
 fun DashboardScreen(
     viewModel: DashboardViewModel = DashboardViewModel(),
+    onNoteClick: (noteId: String) -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -49,16 +51,26 @@ fun DashboardScreen(
             columns = GridCells.Fixed(2),
         ) {
             items(viewModel.notes) { note ->
-                DashboardItem(note = note)
+                DashboardItem(
+                    note = note,
+                    onNoteClick = onNoteClick,
+                )
             }
         }
     }
 }
 
 @Composable
-private fun DashboardItem(note: Note) {
+private fun DashboardItem(
+    note: Note,
+    onNoteClick: (noteId: String) -> Unit,
+) {
     Card(
-        modifier = Modifier.padding(all = 4.dp),
+        modifier = Modifier
+            .padding(all = 4.dp)
+            .clickable {
+                onNoteClick(note.id)
+            },
         elevation = 8.dp,
     ) {
         Column(modifier = Modifier.padding(all = 8.dp)) {
@@ -82,7 +94,9 @@ private fun DashboardItem(note: Note) {
 @Composable
 private fun DashboardScreenPreview() {
     NoteAppComposeTheme {
-        DashboardScreen()
+        DashboardScreen(
+            onNoteClick = {}
+        )
     }
 }
 
@@ -94,6 +108,9 @@ private fun DashboardItemPreview() {
         description = "The first card I'm!",
     )
     NoteAppComposeTheme {
-        DashboardItem(note = note)
+        DashboardItem(
+            note = note,
+            onNoteClick = {},
+        )
     }
 }
