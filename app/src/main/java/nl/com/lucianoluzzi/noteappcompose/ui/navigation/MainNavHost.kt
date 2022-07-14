@@ -32,7 +32,12 @@ fun MainNavHost() {
             }),
         ) { backStackEntry ->
             backStackEntry.arguments?.getString(detailsDestination.noteKey)?.let {
-                DetailsScreen(it)
+                DetailsScreen(
+                    noteId = it,
+                    onBackPressed = {
+                        navController.navigateUp()
+                    }
+                )
             }
         }
     }
