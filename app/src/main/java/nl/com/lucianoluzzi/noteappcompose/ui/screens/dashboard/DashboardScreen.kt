@@ -42,12 +42,10 @@ fun DashboardScreen(
         }
     ) { contentPadding ->
         LazyVerticalGrid(
-            modifier = Modifier.padding(
-                top = contentPadding.calculateTopPadding() + 12.dp,
-                start = contentPadding.calculateStartPadding(LayoutDirection.Ltr) + 12.dp,
-                end = contentPadding.calculateEndPadding(LayoutDirection.Ltr) + 12.dp,
-                bottom = contentPadding.calculateBottomPadding() + 12.dp,
-            ),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding)
+                .padding(12.dp),
             columns = GridCells.Fixed(2),
         ) {
             items(viewModel.notes) { note ->
