@@ -30,7 +30,7 @@ import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
 
 @Composable
 fun DashboardScreen(
-    viewModel: DashboardViewModel = DashboardViewModel(),
+    viewModel: DashboardViewModel,
     onNoteClick: (noteId: String) -> Unit,
 ) {
     Scaffold(
@@ -93,6 +93,7 @@ private fun DashboardItem(
 private fun DashboardScreenPreview() {
     NoteAppComposeTheme {
         DashboardScreen(
+            viewModel = DashboardViewModel(),
             onNoteClick = {}
         )
     }

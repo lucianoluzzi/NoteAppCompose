@@ -8,6 +8,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import nl.com.lucianoluzzi.noteappcompose.ui.screens.dashboard.DashboardScreen
 import nl.com.lucianoluzzi.noteappcompose.ui.screens.details.DetailsScreen
+import org.koin.androidx.compose.getViewModel
+import org.koin.core.parameter.parametersOf
 
 @Composable
 fun MainNavHost() {
@@ -18,6 +20,7 @@ fun MainNavHost() {
     ) {
         composable(Destination.Dashboard.route) {
             DashboardScreen(
+                viewModel = getViewModel(),
                 onNoteClick = { noteId ->
                     navController.navigate(Destination.Details(noteId).route)
                 }
@@ -33,7 +36,9 @@ fun MainNavHost() {
         ) { backStackEntry ->
             backStackEntry.arguments?.getString(detailsDestination.noteKey)?.let {
                 DetailsScreen(
-                    noteId = it,
+                    viewModel = getViewModel(
+                        parameters = { parametersOf(it) }
+                    ),
                     onBackPressed = {
                         navController.navigateUp()
                     }

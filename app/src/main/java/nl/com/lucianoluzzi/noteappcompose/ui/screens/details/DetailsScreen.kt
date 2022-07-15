@@ -20,10 +20,9 @@ import nl.com.lucianoluzzi.noteappcompose.ui.widgets.TopBar
 
 @Composable
 fun DetailsScreen(
-    noteId: String,
+    viewModel: DetailsViewModel,
     onBackPressed: () -> Unit,
 ) {
-    val detailsViewModel = DetailsViewModel(noteId)
     Scaffold(
         topBar = {
             TopBar(
@@ -32,7 +31,7 @@ fun DetailsScreen(
             )
         }
     ) { paddingValues ->
-        when (val uiState = detailsViewModel.uiState.value) {
+        when (val uiState = viewModel.uiState.value) {
             DetailsUIState.Loading -> {}
             is DetailsUIState.Error -> {}
             is DetailsUIState.NoteDetails -> NoteDetails(
@@ -102,7 +101,7 @@ private fun ColumnScope.NoteDescription(
 private fun DetailsScreenPreview() {
     NoteAppComposeTheme {
         DetailsScreen(
-            noteId = "teste",
+            viewModel = DetailsViewModel(""),
             onBackPressed = {},
         )
     }
