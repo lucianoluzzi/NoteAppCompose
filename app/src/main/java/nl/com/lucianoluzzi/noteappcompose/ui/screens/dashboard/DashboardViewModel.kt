@@ -1,25 +1,23 @@
 package nl.com.lucianoluzzi.noteappcompose.ui.screens.dashboard
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import nl.com.lucianoluzzi.noteappcompose.domail.model.Note
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import nl.com.lucianoluzzi.noteappcompose.domail.useCase.GetNotesUseCase
 
-class DashboardViewModel : ViewModel() {
-    val notes = listOf(
-        Note(
-            title = "#1",
-            description = "First card",
-        ),
-        Note(
-            title = "Groceries",
-            description = "Onions, garlic, ground beef",
-        ),
-        Note(
-            title = "TODO",
-            description = "Hire a paid ads specialist",
-        ),
-        Note(
-            title = "TODO",
-            description = "Hire a paid ads specialist",
-        ),
-    )
+class DashboardViewModel(
+    private val getNotesUseCase: GetNotesUseCase
+) : ViewModel() {
+    private val _uiState = mutableStateOf<DashboardUIState>(DashboardUIState.Loading)
+    val uiState: State<DashboardUIState> = _uiState
+
+    init {
+        viewModelScope.launch {
+            getNotesUseCase().collect { notes ->
+                _uiState.value = DashboardUIState.DashboardData(notes)
+            }
+        }
+    }
 }

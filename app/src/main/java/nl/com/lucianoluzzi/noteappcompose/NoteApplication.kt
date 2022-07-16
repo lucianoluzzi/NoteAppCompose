@@ -1,10 +1,10 @@
 package nl.com.lucianoluzzi.noteappcompose
 
 import android.app.Application
-import nl.com.lucianoluzzi.noteappcompose.di.databaseModule
-import nl.com.lucianoluzzi.noteappcompose.di.repositoryModule
-import nl.com.lucianoluzzi.noteappcompose.di.useCaseModule
-import nl.com.lucianoluzzi.noteappcompose.di.viewModelModule
+import nl.com.lucianoluzzi.noteappcompose.dependencyInjection.databaseModule
+import nl.com.lucianoluzzi.noteappcompose.dependencyInjection.repositoryModule
+import nl.com.lucianoluzzi.noteappcompose.dependencyInjection.useCaseModule
+import nl.com.lucianoluzzi.noteappcompose.dependencyInjection.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin

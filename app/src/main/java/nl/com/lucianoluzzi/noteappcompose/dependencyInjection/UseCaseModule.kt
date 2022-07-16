@@ -1,4 +1,4 @@
-package nl.com.lucianoluzzi.noteappcompose.di
+package nl.com.lucianoluzzi.noteappcompose.dependencyInjection
 
 import nl.com.lucianoluzzi.noteappcompose.domail.useCase.GetNotesUseCase
 import org.koin.dsl.module

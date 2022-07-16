@@ -1,4 +1,4 @@
-package nl.com.lucianoluzzi.noteappcompose.di
+package nl.com.lucianoluzzi.noteappcompose.dependencyInjection
 
 import nl.com.lucianoluzzi.noteappcompose.ui.screens.dashboard.DashboardViewModel
 import nl.com.lucianoluzzi.noteappcompose.ui.screens.details.DetailsViewModel
@@ -7,7 +7,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel {
-        DashboardViewModel()
+        DashboardViewModel(getNotesUseCase = get())
     }
 
     viewModel { parameters ->

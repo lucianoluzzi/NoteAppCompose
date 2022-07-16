@@ -4,8 +4,6 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,9 +21,13 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.Flow
+import nl.com.lucianoluzzi.noteappcompose.data.dataSource.NoteLocalDataSource
+import nl.com.lucianoluzzi.noteappcompose.data.entity.NoteEntity
+import nl.com.lucianoluzzi.noteappcompose.data.repository.NoteRepository
 import nl.com.lucianoluzzi.noteappcompose.domail.model.Note
+import nl.com.lucianoluzzi.noteappcompose.domail.useCase.GetNotesUseCase
 import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
 
 @Composable
@@ -41,19 +43,34 @@ fun DashboardScreen(
             }
         }
     ) { contentPadding ->
-        LazyVerticalGrid(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(contentPadding)
-                .padding(12.dp),
-            columns = GridCells.Fixed(2),
-        ) {
-            items(viewModel.notes) { note ->
-                DashboardItem(
-                    note = note,
-                    onNoteClick = onNoteClick,
-                )
-            }
+        when (val uiState = viewModel.uiState.value) {
+            is DashboardUIState.DashboardData -> DashboardData(
+                modifier = Modifier.padding(contentPadding),
+                notes = uiState.notes,
+                onNoteClick = onNoteClick,
+            )
+            DashboardUIState.Loading -> Loading()
+        }
+    }
+}
+
+@Composable
+private fun DashboardData(
+    modifier: Modifier = Modifier,
+    notes: List<Note>,
+    onNoteClick: (noteId: Long) -> Unit,
+) {
+    LazyVerticalGrid(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(12.dp),
+        columns = GridCells.Fixed(2),
+    ) {
+        items(notes) { note ->
+            DashboardItem(
+                note = note,
+                onNoteClick = onNoteClick,
+            )
         }
     }
 }
@@ -85,6 +102,11 @@ private fun DashboardItem(
     }
 }
 
+@Composable
+private fun Loading() {
+
+}
+
 @Preview(
     showBackground = true,
     uiMode = UI_MODE_NIGHT_YES,
@@ -93,7 +115,17 @@ private fun DashboardItem(
 private fun DashboardScreenPreview() {
     NoteAppComposeTheme {
         DashboardScreen(
-            viewModel = DashboardViewModel(),
+            viewModel = DashboardViewModel(
+                getNotesUseCase = GetNotesUseCase(
+                    noteRepository = NoteRepository(
+                        noteLocalDataSource = object : NoteLocalDataSource {
+                            override fun getNotes(): Flow<List<NoteEntity>> {
+                                TODO("Not yet implemented")
+                            }
+                        }
+                    )
+                )
+            ),
             onNoteClick = {}
         )
     }
