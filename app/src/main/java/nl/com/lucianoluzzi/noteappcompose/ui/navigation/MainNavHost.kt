@@ -30,11 +30,11 @@ fun MainNavHost() {
         val detailsDestination = Destination.Details()
         composable(
             route = detailsDestination.route,
-            arguments = listOf(navArgument(detailsDestination.noteKey) {
-                type = NavType.StringType
+            arguments = listOf(navArgument(detailsDestination.noteKey.toString()) {
+                type = NavType.LongType
             }),
         ) { backStackEntry ->
-            backStackEntry.arguments?.getString(detailsDestination.noteKey)?.let {
+            backStackEntry.arguments?.getLong(detailsDestination.noteKey.toString())?.let {
                 DetailsScreen(
                     viewModel = getViewModel(
                         parameters = { parametersOf(it) }

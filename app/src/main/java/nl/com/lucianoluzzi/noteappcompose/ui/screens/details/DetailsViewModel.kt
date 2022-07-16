@@ -12,7 +12,7 @@ class DetailsViewModel(private val noteId: String) : ViewModel() {
     init {
         _uiState.value = DetailsUIState.NoteDetails(
             Note(
-                id = noteId,
+                id = 0,
                 title = "I'm the note title",
                 description = "And I'm the note description",
             )

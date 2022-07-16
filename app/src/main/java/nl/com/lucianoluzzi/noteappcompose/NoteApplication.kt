@@ -1,6 +1,9 @@
 package nl.com.lucianoluzzi.noteappcompose
 
 import android.app.Application
+import nl.com.lucianoluzzi.noteappcompose.di.databaseModule
+import nl.com.lucianoluzzi.noteappcompose.di.repositoryModule
+import nl.com.lucianoluzzi.noteappcompose.di.useCaseModule
 import nl.com.lucianoluzzi.noteappcompose.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +20,12 @@ class NoteApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@NoteApplication)
-            modules(viewModelModule)
+            modules(
+                viewModelModule,
+                repositoryModule,
+                databaseModule,
+                useCaseModule,
+            )
         }
     }
 }

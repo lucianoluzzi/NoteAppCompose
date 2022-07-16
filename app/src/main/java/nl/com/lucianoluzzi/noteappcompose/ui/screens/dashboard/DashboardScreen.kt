@@ -31,7 +31,7 @@ import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
 @Composable
 fun DashboardScreen(
     viewModel: DashboardViewModel,
-    onNoteClick: (noteId: String) -> Unit,
+    onNoteClick: (noteId: Long) -> Unit,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -61,7 +61,7 @@ fun DashboardScreen(
 @Composable
 private fun DashboardItem(
     note: Note,
-    onNoteClick: (noteId: String) -> Unit,
+    onNoteClick: (noteId: Long) -> Unit,
 ) {
     Card(
         modifier = Modifier
