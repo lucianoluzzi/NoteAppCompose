@@ -1,6 +1,6 @@
 package nl.com.lucianoluzzi.noteappcompose.ui.screens.details
 
-import nl.com.lucianoluzzi.noteappcompose.domail.model.Note
+import nl.com.lucianoluzzi.noteappcompose.domain.model.Note
 
 sealed class DetailsUIState {
     object Loading : DetailsUIState()

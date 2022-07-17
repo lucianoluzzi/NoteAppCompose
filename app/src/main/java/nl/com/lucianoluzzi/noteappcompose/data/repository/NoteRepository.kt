@@ -6,4 +6,6 @@ import nl.com.lucianoluzzi.noteappcompose.data.entity.NoteEntity
 
 class NoteRepository(private val noteLocalDataSource: NoteLocalDataSource) {
     fun getNotes(): Flow<List<NoteEntity>> = noteLocalDataSource.getNotes()
+
+    fun getNote(id: Long): NoteEntity? = noteLocalDataSource.getNote(id)
 }

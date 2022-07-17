@@ -5,4 +5,6 @@ import nl.com.lucianoluzzi.noteappcompose.data.entity.NoteEntity
 
 class NoteLocalDataSourceImpl(private val noteDao: NoteDao) : NoteLocalDataSource {
     override fun getNotes(): Flow<List<NoteEntity>> = noteDao.getNotes()
+
+    override fun getNote(id: Long): NoteEntity? = noteDao.getNote(id)
 }

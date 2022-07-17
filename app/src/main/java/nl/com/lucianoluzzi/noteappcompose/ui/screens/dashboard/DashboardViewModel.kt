@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import nl.com.lucianoluzzi.noteappcompose.domail.useCase.GetNotesUseCase
+import nl.com.lucianoluzzi.noteappcompose.domain.useCase.GetNotesUseCase
 
 class DashboardViewModel(
     private val getNotesUseCase: GetNotesUseCase

@@ -3,7 +3,7 @@ package nl.com.lucianoluzzi.noteappcompose.ui.screens.details
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import nl.com.lucianoluzzi.noteappcompose.domail.model.Note
+import nl.com.lucianoluzzi.noteappcompose.domain.model.Note
 
 class DetailsViewModel(private val noteId: String) : ViewModel() {
     private val _uiState = mutableStateOf<DetailsUIState>(DetailsUIState.Loading)

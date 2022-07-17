@@ -9,4 +9,7 @@ import nl.com.lucianoluzzi.noteappcompose.data.entity.NoteEntity
 interface NoteDao {
     @Query("SELECT * FROM note")
     fun getNotes(): Flow<List<NoteEntity>>
+
+    @Query("SELECT * from note WHERE id = :id")
+    fun getNote(id: Long): NoteEntity?
 }

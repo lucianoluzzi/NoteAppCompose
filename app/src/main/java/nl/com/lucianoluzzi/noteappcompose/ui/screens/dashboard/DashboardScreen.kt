@@ -26,8 +26,8 @@ import kotlinx.coroutines.flow.Flow
 import nl.com.lucianoluzzi.noteappcompose.data.dataSource.NoteLocalDataSource
 import nl.com.lucianoluzzi.noteappcompose.data.entity.NoteEntity
 import nl.com.lucianoluzzi.noteappcompose.data.repository.NoteRepository
-import nl.com.lucianoluzzi.noteappcompose.domail.model.Note
-import nl.com.lucianoluzzi.noteappcompose.domail.useCase.GetNotesUseCase
+import nl.com.lucianoluzzi.noteappcompose.domain.model.Note
+import nl.com.lucianoluzzi.noteappcompose.domain.useCase.GetNotesUseCase
 import nl.com.lucianoluzzi.noteappcompose.ui.theme.NoteAppComposeTheme
 
 @Composable
@@ -120,6 +120,10 @@ private fun DashboardScreenPreview() {
                     noteRepository = NoteRepository(
                         noteLocalDataSource = object : NoteLocalDataSource {
                             override fun getNotes(): Flow<List<NoteEntity>> {
+                                TODO("Not yet implemented")
+                            }
+
+                            override fun getNote(id: Long): NoteEntity? {
                                 TODO("Not yet implemented")
                             }
                         }

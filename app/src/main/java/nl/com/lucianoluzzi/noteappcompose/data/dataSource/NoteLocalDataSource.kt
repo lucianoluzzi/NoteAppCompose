@@ -5,4 +5,6 @@ import nl.com.lucianoluzzi.noteappcompose.data.entity.NoteEntity
 
 interface NoteLocalDataSource {
     fun getNotes(): Flow<List<NoteEntity>>
+
+    fun getNote(id: Long): NoteEntity?
 }
